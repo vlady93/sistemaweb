@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-@section('title','Registro de venta')
+@section('title','Registro de salida de material')
 @section('styles')
 {!! Html::style('select/dist/css/bootstrap-select.min.css') !!}
 {!! Html::style('https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.2/dropzone.min.css') !!}
@@ -12,11 +12,7 @@
 </style>
 @endsection
 @section('create')
-<li class="nav-item d-none d-lg-flex">
-    <a class="nav-link" type="button" data-toggle="modal" data-target="#exampleModal-2">
-      <span class="btn btn-warning">+ Registrar cliente</span>
-    </a>
-</li>
+
 @endsection
 @section('options')
 @endsection
@@ -26,13 +22,13 @@
 <div class="content-wrapper">
     <div class="page-header">
         <h3 class="page-title">
-            Registro de venta
+            Registro salida de material
         </h3>
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="#">Panel administrador</a></li>
-                <li class="breadcrumb-item"><a href="{{route('sales.index')}}">Ventas</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Registro de venta</li>
+                <li class="breadcrumb-item"><a href="{{route('sales.index')}}">Salida de Material</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Registro salida de material</li>
             </ol>
         </nav>
     </div>
@@ -56,67 +52,8 @@
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-lg-12 grid-margin ">
-    <div class="card">
-        <div class="card-body">
-       
-                <h5>Subir Imagenes</h5>
-                {!! Form::open(['route'=>'files.store', 'method'=>'POST','files' => true,'class'=>'dropzone','id'=>'my-awesome-dropzone']) !!}
-
-                {!! Form::close() !!}
-               
-            </div>
-        </div>
-    </div>
-    </div>
-</div>
-
-
-<div class="modal fade" id="exampleModal-2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel-2"
-    aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel-2">Registro rápido de cliente</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-
-
-            {!! Form::open(['route'=>'clients.store', 'method'=>'POST','files' => true]) !!}
-
-
-            <div class="modal-body">
-
-                <div class="form-group">
-                    <label for="name">Nombre</label>
-                    <input type="text" class="form-control" name="name" id="name" aria-describedby="helpId" required>
-                </div>
-                <div class="form-group">
-                    <label for="dni">DNI</label>
-                    <input type="number" class="form-control" name="dni" id="dni" aria-describedby="helpId" required>
-                </div>
-
-                <input type="hidden" name="sale" value="1">
-
-            </div>
-            <div class="modal-footer">
-                <button type="submit" class="btn btn-success">Registrar</button>
-                <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
-            </div>
-
-        {!! Form::close() !!}
-
-        </div>
     
-    </div>
 </div>
-
-
-
-
 
 
 @endsection
@@ -124,14 +61,6 @@
 {!! Html::script('melody/js/alerts.js') !!}
 {!! Html::script('melody/js/avgrund.js') !!}
 {!! Html::script('melody/select/dist/js/bootstrap-select.min.js') !!}
-{!! Html::script('https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.2/min/dropzone.min.js') !!}
-<script>
-    Dropzone.options.myAwesomeDropzone = {
-        headers:{
-            'X-CSRF-TOKEN':"{{csrf_token()}}"
-        },
-    };
-</script>
 <script>
     
 $(document).ready(function () {
@@ -163,7 +92,7 @@ function agregar() {
         if (parseInt(stock) >= parseInt(quantity)) {
             subtotal[cont] = (quantity * price);
             total = total + subtotal[cont];
-            var fila = '<tr class="selected" id="fila' + cont + '"><td><button type="button" class="btn btn-danger btn-sm" onclick="eliminar(' + cont + ');"><i class="fa fa-times fa-2x"></i></button></td> <td><input type="hidden" name="product_id[]" value="' + product_id + '">' + producto + '</td> <td> <input type="hidden" name="price[]" value="' + parseFloat(price).toFixed(2) + '"> <input class="form-control" type="number" value="' + parseFloat(price).toFixed(2) + '" disabled> </td> </td> <td> <input type="hidden" name="quantity[]" value="' + quantity + '"> <input type="number" value="' + quantity + '" class="form-control" disabled> </td> <td align="right">s/' + parseFloat(subtotal[cont]).toFixed(2) + '</td></tr>';
+            var fila = '<tr class="selected" id="fila' + cont + '"><td><button type="button" class="btn btn-danger btn-sm" onclick="eliminar(' + cont + ');"><i class="fa fa-times fa-2x"></i></button></td> <td><input type="hidden" name="product_id[]" value="' + product_id + '">' + producto + '</td> <td> <input type="hidden" name="price[]" value="' + parseFloat(price).toFixed(2) + '"> <input class="form-control" type="number" value="' + parseFloat(price).toFixed(2) + '" disabled> </td> </td> <td> <input type="hidden" name="quantity[]" value="' + quantity + '"> <input type="number" value="' + quantity + '" class="form-control" disabled> </td> <td >Bs.- ' + parseFloat(subtotal[cont]).toFixed(2) + '</td></tr>';
             cont++;
             limpiar();
             totales();
@@ -187,10 +116,10 @@ function limpiar() {
     $("#discount").val("0");
 }
 function totales() {
-    $("#total").html("PEN " + total.toFixed(2));
+    $("#total").html("Bs.- " + total.toFixed(2));
     
     total_pagar = total;
-    $("#total_pagar_html").html("PEN " + total_pagar.toFixed(2));
+    $("#total_pagar_html").html("Bs.- " + total_pagar.toFixed(2));
     $("#total_pagar").val(total_pagar.toFixed(2));
 }
 function evaluar() {

@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-@section('title','Registro de venta')
+@section('title','Registro de proyecto')
 @section('styles')
 {!! Html::style('select/dist/css/bootstrap-select.min.css') !!}
 <style type="text/css">
@@ -25,13 +25,13 @@
 <div class="content-wrapper">
     <div class="page-header">
         <h3 class="page-title">
-            Registro de venta
+            Registro de proyecto
         </h3>
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="#">Panel administrador</a></li>
-                <li class="breadcrumb-item"><a href="{{route('sales.index')}}">Ventas</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Registro de venta</li>
+                <li class="breadcrumb-item"><a href="{{route('projects.index')}}">Proyectos</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Registro de proyecto</li>
             </ol>
         </nav>
     </div>
@@ -41,9 +41,6 @@
                 {!! Form::open(['route'=>'projects.store', 'method'=>'POST']) !!}
                 <div class="card-body">
                     
-                    <div class="d-flex justify-content-between">
-                        <h4 class="card-title">Registro de venta</h4>
-                    </div>
                     
                     @include('admin.project._form')
                      
@@ -51,12 +48,70 @@
                 </div>
                 <div class="card-footer text-muted">
                     <button type="submit" id="guardar" class="btn btn-primary float-right">Registrar</button>
-                     <a href="{{route('sales.index')}}" class="btn btn-light">
+                     <a href="{{route('projects.index')}}" class="btn btn-light">
                         Cancelar
                      </a>
                 </div>
                 {!! Form::close() !!}
             </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="exampleModal-2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel-2"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel-2">Registro rápido de cliente</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+
+            {!! Form::open(['route'=>'clients.store', 'method'=>'POST','files' => true]) !!}
+
+
+            <div class="modal-body">
+                <div class="form row">
+                    <div class="form-group col-12">
+                        <label for="name">Nombre</label>
+                        <input type="text" class="form-control" name="name" id="name" aria-describedby="helpId" required>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group col-6">
+                        <label for="ap_paterno">Apellido Paterno</label>
+                        <input type="text" class="form-control" name="ap_paterno" id="ap_paterno" aria-describedby="helpId" required>
+                    </div>
+                    <div class="form-group col-6">
+                        <label for="ap_materno">Apellido Materno</label>
+                        <input type="text" class="form-control" name="ap_materno" id="ap_materno" aria-describedby="helpId" required>
+                    </div>
+                    
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-6">
+                        <label for="ci">CI</label>
+                        <input type="number" class="form-control" name="ci" id="ci" aria-describedby="helpId" required>
+                    </div>
+                    <div class="form-group col-6">
+                        <label for="phone">Teléfono/Celular</label>
+                        <input type="number" class="form-control" name="phone" id="phone" aria-describedby="helpId" required>             
+                    </div>
+                </div>
+                <input type="hidden" name="sale" value="1">
+
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-success">Registrar</button>
+                <button type="button" class="btn btn-light" data-dismiss="modal">Cancelar</button>
+            </div>
+
+        {!! Form::close() !!}
+
         </div>
     </div>
 </div>

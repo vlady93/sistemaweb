@@ -17,6 +17,9 @@ class CreateClientsTable extends Migration
             $table->id();
 
             $table->string('name');
+            $table->string('ap_paterno');
+            $table->string('ap_materno');
+            $table->string('genero')->nullable();
             $table->string('ci')->unique();
             $table->string('nit')->nullable()->unique();
             $table->string('address')->nullable();

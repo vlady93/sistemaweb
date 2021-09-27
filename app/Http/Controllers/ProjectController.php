@@ -55,7 +55,7 @@ class ProjectController extends Controller
     }
     public function show(Sale $sale , Project $project )
     {   
-        $sale=Sale::find($project->id);
+        $sale=Sale::where('project_id',$project->id)->first();               
         $files = File::where('project_id', $project->id)->get();
         $projectDetails = $project->projectDetails;
         $resultado = ProjectDetails::join("users", "users.id", "=", "project_details.user_id")

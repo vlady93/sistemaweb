@@ -64,7 +64,7 @@
                                 <tr>
                                     <th scope="row">{{$client->id}}</th>
                                     <td>
-                                        <a href="{{route('clients.show',$client)}}">{{$client->name}}</a>
+                                        <a href="{{route('clients.show',$client)}}">{{$client->name}} {{$client->ap_paterno}} {{$client->ap_materno}}</a>
                                     </td>
                                     <td>{{$client->ci}}</td>
                                     <td>{{$client->phone}}</td>

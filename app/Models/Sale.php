@@ -23,4 +23,8 @@ class Sale extends Model
     public function saleDetails(){
         return $this->hasMany(saleDetails::class);
     }
+    public function Movimiento(){
+        return $this->hasMany(Movimientos::class);
+    }
+    
 }

@@ -18,12 +18,12 @@
 <div class="content-wrapper">
     <div class="page-header">
         <h3 class="page-title">
-            Productos
+            Materiales
         </h3>
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="#">Panel administrador</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Productos</li>
+                <li class="breadcrumb-item active" aria-current="page">Materiales</li>
             </ol>
         </nav>
     </div>

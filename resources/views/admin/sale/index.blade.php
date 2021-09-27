@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-@section('title','Gestión de ventas')
+@section('title','Gestión de material')
 @section('styles')
 <style type="text/css">
     .unstyled-button {
@@ -11,11 +11,6 @@
 
 @endsection
 @section('create')
-<li class="nav-item d-none d-lg-flex">
-    <a class="nav-link" href="{{route('sales.create')}}">
-      <span class="btn btn-primary">+ Registrar venta</span>
-    </a>
-  </li>
 @endsection
 @section('options')
 @endsection
@@ -25,12 +20,12 @@
 <div class="content-wrapper">
     <div class="page-header">
         <h3 class="page-title">
-            Ventas
+            Salida de Material
         </h3>
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="#">Panel administrador</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Ventas</li>
+                <li class="breadcrumb-item active" aria-current="page">Salida de Material</li>
             </ol>
         </nav>
     </div>
@@ -39,30 +34,22 @@
             <div class="card">
                 <div class="card-body">
                     
-                    <div class="d-flex justify-content-between">
-                        <h4 class="card-title">Ventas</h4>
-                        {{--  <i class="fas fa-ellipsis-v"></i>  --}}
-                        <div class="btn-group">
-                            <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-ellipsis-v"></i>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right">
-                              <a href="{{route('sales.create')}}" class="dropdown-item">Registrar</a>
-                              {{--  <button class="dropdown-item" type="button">Another action</button>
-                              <button class="dropdown-item" type="button">Something else here</button>  --}}
-                            </div>
-                          </div>
-                    </div>
+                    <div class="d-flex justify-content-between align-items-center mb-3 mr-2">
+                        <h5> Lista de Proyectos</h5> 
+                        <a class="nav-link" href="{{route('sales.create')}}">
+                            <span class="btn btn-success btn-sm "> Nueva Salida de Material</span>
+                        </a>
+                
+                </div>
 
                     <div class="table-responsive">
                         <table id="order-listing" class="table">
                             <thead>
                                 <tr>
                                     <th>Id</th>
+                                    
                                     <th>Fecha</th>
                                     <th>Total</th>
-                                    <th>Estado</th>
-                                    <th style="width:50px;">Acciones</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -71,6 +58,7 @@
                                     <th scope="row">
                                         <a href="{{route('sales.show', $sale)}}">{{$sale->id}}</a>
                                     </th>
+                                    
                                     <td>
                                         {{\Carbon\Carbon::parse($sale->sale_date)->format('d M y h:i a')}}
                                     </td>

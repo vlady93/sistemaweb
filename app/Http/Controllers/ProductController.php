@@ -9,6 +9,8 @@ use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Http\Requests\Product\StoreRequest;
 use App\Http\Requests\Product\UpdateRequest;
+use App\Models\Sale;
+use App\Models\SaleDetails;
 
 class ProductController extends Controller
 {
@@ -47,8 +49,12 @@ class ProductController extends Controller
 
    
     public function show(Product $product)
-    {
-        return view('admin.product.show', compact('product'));
+
+    {       
+         $kardex = Product::join("movimientos","movimientos.product_id","=","products.id")
+                            ->where("movimientos.product_id","=",$product->id)                    
+                            ->get();  
+        return view('admin.product.show', compact('product','kardex'));
     }
 
     

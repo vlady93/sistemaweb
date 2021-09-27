@@ -9,6 +9,7 @@ use App\Models\project;
 use Illuminate\Http\Request;
 use App\Http\Requests\Sale\StoreRequest;
 use App\Http\Requests\Sale\UpdateRequest;
+use App\Models\Movimientos;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 
@@ -27,7 +28,7 @@ class SaleController extends Controller
         return view('admin.sale.create', compact('clients', 'products'));
     }
     public function store(StoreRequest $request)
-    {
+    {   
         $sale = Sale::create($request->all()+[
             'user_id'=>Auth::user()->id,
             'sale_date'=>Carbon::now('America/Lima')
@@ -35,9 +36,13 @@ class SaleController extends Controller
         foreach ($request->product_id as $key => $product) {
             $results[] = array("product_id"=>$request->product_id[$key],
              "quantity"=>$request->quantity[$key], 
-             "price"=>$request->price[$key]);
+             "price"=>$request->price[$key],
+             "tipo"=>'0');
         }
         $sale->saleDetails()->createMany($results);
+        $sale->Movimiento()->createMany($results);
+         
+        
         return redirect()->route('sales.index');
     }
     public function show(Sale $sale)

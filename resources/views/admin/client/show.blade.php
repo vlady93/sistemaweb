@@ -72,17 +72,17 @@
                                             <div class="form-group col-md-6">
                                                 <strong><i class="fab fa-product-hunt mr-1"></i> Nombre</strong>
                                                 <p class="text-muted">
-                                                    {{$client->name}}
+                                                    {{$client->name}} {{$client->ap_paterno}} {{$client->ap_materno}}
                                                 </p>
                                                 <hr>
-                                                <strong><i class="fas fa-address-card mr-1"></i> Numero de DNI</strong>
+                                                <strong><i class="fas fa-address-card mr-1"></i> CI</strong>
                                                 <p class="text-muted">
-                                                    {{$client->dni}}
+                                                    {{$client->ci}}
                                                 </p>
                                                 <hr>
-                                                <strong><i class="fas fa-address-card mr-1"></i> Numero de RUC</strong>
+                                                <strong><i class="fas fa-address-card mr-1"></i> Número de NIT</strong>
                                                 <p class="text-muted">
-                                                    {{$client->ruc}}
+                                                    {{$client->nit}}
                                                 </p>
                                                 <hr>
                                             </div>

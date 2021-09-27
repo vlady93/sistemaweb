@@ -20,4 +20,7 @@ class Purchase extends Model
     public function purchaseDetails(){
         return $this->hasMany(PurchaseDetails::class);
     }
+    public function Movimiento(){
+        return $this->hasMany(Movimientos::class);
+    }
 }

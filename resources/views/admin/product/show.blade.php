@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-@section('title','información de producto')
+@section('title','información del material')
 @section('styles')
 
 @endsection
@@ -15,16 +15,7 @@
 @section('content')
 <div class="content-wrapper">
     <div class="page-header">
-        <h3 class="page-title">
-            {{$product->name}}
-        </h3>
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Panel administrador</a></li>
-                <li class="breadcrumb-item"><a href="{{route('products.index')}}">Productos</a></li>
-                <li class="breadcrumb-item active" aria-current="page">{{$product->name}}</li>
-            </ol>
-        </nav>
+     
     </div>
     <div class="row">
         <div class="col-12">
@@ -55,14 +46,14 @@
                             </div>  --}}
 
                             <div class="py-4">
-                                <p class="clearfix">
+                                {{-- <p class="clearfix">
                                     <span class="float-left">
                                         Status
                                     </span>
                                     <span class="float-right text-muted">
                                         {{$product->status}}
                                     </span>
-                                </p>
+                                </p> --}}
                                 <p class="clearfix">
                                     <span class="float-left">
                                         Proveedor
@@ -112,7 +103,7 @@
                         <div class="col-lg-8 pl-lg-5">
                             <div class="d-flex justify-content-between">
                                 <div>
-                                    <h4>Información de producto</h4>
+                                    <h4>Información del Material</h4>
                                 </div>
                             </div>
                             <div class="profile-feed">
@@ -120,53 +111,121 @@
 
                                     <div class="form-group col-md-6">
                                         <strong><i class="fab fa-product-hunt mr-1"></i> Código</strong>
-                                        <p class="text-muted">
+                                        <p class="text-muted mt-2">
                                             {{$product->code}}
                                         </p>
                                         <hr>
-                                        <strong><i class="fab fa-product-hunt mr-1"></i> Stock</strong>
-                                        <p class="text-muted">
+                                        <strong><i class="fab fa-dropbox mr-1"></i> Stock</strong>
+                                        <p class="text-muted mt-2">
                                             {{$product->stock}}
                                         </p>
                                         <hr>
                                     </div>
                                     <div class="form-group col-md-6">
                                         <strong>
-                                            <i class="fas fa-mobile mr-1"></i>
-                                            Precio de venta</strong>
-                                        <p class="text-muted">
-                                            {{$product->sell_price}}
+                                            <i class="fas fa-money-bill mr-1"></i>
+                                            Precio de Material </strong>
+                                        <p class="text-muted mt-2">
+                                            {{$product->sell_price}} Bs.-
                                         </p>
                                         <hr>
-                                        <strong><i class="fas fa-envelope mr-1"></i> Código de barras</strong>
-                                        <p class="text-muted">
-                                            {{-- {!!DNS1D::getBarcodeHTML($product->code, 'EAN13'); !!} --}}
+                                        <strong><i class="fas fa-wifi mr-1"></i> Código RFID</strong>
+                                        <p class="text-muted mt-2">
+                                            {{$product->rfid}}
                                         </p>
                                         <hr>
-                                        {{--  <strong><i class="fas fa-map-marked-alt mr-1"></i> Categoría</strong>
-                                        <p class="text-muted">
-                                            {{$product->category->name}}
-                                        </p>
-                                        <hr>  --}}
-                                        {{--  <strong><i class="fas fa-map-marked-alt mr-1"></i> Proveedor</strong>
-                                        <p class="text-muted">
-                                            {{$product->provider->name}}
-                                        </p>
-                                        <hr>  --}}
                                     </div>
+                                   
                                 </div>
+                                <div class="form-group col-md-12 mt-4">
+    
+                                    <a href="{{route('products.index')}}" class="btn btn-primary float-right">Regresar</a>
+
+                               </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="card-footer text-muted">
-                    <a href="{{route('products.index')}}" class="btn btn-primary float-right">Regresar</a>
-                </div>
+               
             </div>
         </div>
     </div>
 
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    
+    <div class="form-group">
+        <div class="table-responsive col-md-12">
+            
+            <table id="saleDetails" class="table">
+                <thead>
+                    <tr class="bg-dark text-white text-center">
+                        <th>Fecha</th>
+                        <th>Hora</th>
+                        <th>Material</th>
+                        <th>Descripción</th>
+                        <th>Inicial</th>
+                        <th>Entrada</th>
+                        <th>Salida</th>
+                        <th>Saldo</th>
+                    </tr>
+                </thead>
+                <tfoot>
+
+                  
+                <tbody>
+                    <tr>
+                        <td>{{\Carbon\Carbon::parse($product->created_at)->format('d M y')}}</td>
+                        <td>{{\Carbon\Carbon::parse($product->created_at)->format('h i a')}}</td>
+                        <td>{{$product->name}}</td>
+                        <td>Inicial</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                    </tr>
+                    <div hidden>{{$saldo=0}}</div>
+                    @foreach ($kardex as $karde)
+                    
+                    <tr>
+                        <td>{{\Carbon\Carbon::parse($karde->date_sale)->format('d M y')}}</td>
+                        <td>{{\Carbon\Carbon::parse($karde->date_sale)->format('h i a')}}</td>
+                        <td>{{$karde->name}}</td>
+                        <td>
+                            @if ($karde->tipo == 1)
+                                 Ingreso
+                                 <td>{{$saldo}}</td>
+                                 <td>{{ $karde->quantity}}</td>
+                                 <td>-</td>
+                                 <td>{{$saldo=$saldo + $karde->quantity}}</td>
+                            @else 
+                                 Salida  
+                                 <td>{{$saldo}}</td>
+                                 <td>-</td>
+                                 <td>{{$karde->quantity}}</td>
+                                 <td>{{$saldo=$saldo - $karde->quantity}} </td>
+                                    
+                            @endif
+                        </td>
+                        
+
+                    </tr>
+                   
+                        
+                    @endforeach
+                   
+                </tbody>
+            </table>
+        </div>
+    </div>
+
 </div>
+</div>
+</div>
+</div>
+
 @endsection
 @section('scripts')
 {!! Html::script('melody/js/profile-demo.js') !!}
