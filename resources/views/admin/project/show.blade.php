@@ -71,7 +71,13 @@
                                             {{$user->name}}
                                         </td>
                                         <td>
-                                            {{$user->cargo}}
+                                        
+                                                @if(!empty($user->getRoleNames()))
+                                                  @foreach($user->getRoleNames() as $rolNombre)                                       
+                                                    {{ $rolNombre }}
+                                                  @endforeach
+                                                @endif
+                                              
                                         </td>
                                         
                                          
@@ -93,7 +99,7 @@
                             <table id="saleDetails" class="table">
                                 <thead>
                                     <tr>
-                                        <th>Producto</th>
+                                        <th>Material</th>
                                         <th>Precio</th>
                                         <th>Cantidad</th>
                                         <th>SubTotal</th>

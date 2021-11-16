@@ -9,6 +9,14 @@ use App\Http\Requests\Category\UpdateRequest;
 
 class CategoryController extends Controller
 {
+     function __construct()
+    {
+         $this->middleware('permission:ver-categoria')->only('index');
+         $this->middleware('permission:crear-categoria', ['only' => ['create','store']]);
+         $this->middleware('permission:editar-categoria', ['only' => ['edit','update']]);
+         $this->middleware('permission:detalle-categoria', ['only' => ['show']]);
+         $this->middleware('permission:borrar-categoria', ['only' => ['destroy']]);
+    }
     public function index()
     {
         $categories = Category::get();

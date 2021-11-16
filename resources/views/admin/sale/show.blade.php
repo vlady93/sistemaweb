@@ -16,13 +16,13 @@
 <div class="content-wrapper">
     <div class="page-header">
         <h3 class="page-title">
-            Detalles de venta
+            Detalles de Salida de Material
         </h3>
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="#">Panel administrador</a></li>
-                <li class="breadcrumb-item"><a href="#">Ventas</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Detalles de venta</li>
+                <li class="breadcrumb-item"><a href="#">Salida de Material</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Detalles de Salida de Material</li>
             </ol>
         </nav>
     </div>
@@ -33,56 +33,38 @@
                     <div class="form-group row">
                         <div class="col-md-4 text-center">
                             <label class="form-control-label"><strong>Cliente</strong></label>
-                            <p><a href="{{route('clients.show', $sale->project)}}">{{$sale->project->name}}</a></p>
+                            <p>{{$sale->project->name}}</p>
                         </div>
                         <div class="col-md-4 text-center">
-                            <label class="form-control-label"><strong>Vendedor</strong></label>
+                            <label class="form-control-label"><strong>Usuario</strong></label>
                             <p>{{$sale->user->name}}</p>
                         </div>
                         <div class="col-md-4 text-center">
-                            <label class="form-control-label"><strong>Número Venta</strong></label>
+                            <label class="form-control-label"><strong>Número de Salida </strong></label>
                             <p>{{$sale->id}}</p>
                         </div>
                     </div>
                     <br /><br />
                     <div class="form-group">
-                        <h4 class="card-title">Detalles de venta</h4>
+                        <h4 class="card-title">Detalles de Salida de Material</h4>
                         <div class="table-responsive col-md-12">
                             <table id="saleDetails" class="table">
                                 <thead>
                                     <tr>
-                                        <th>Producto</th>
-                                        <th>Precio Venta (PEN)</th>
-                                        <th>Descuento(PEN)</th>
+                                        <th>Material</th>
+                                        <th>Precio Salida</th>
                                         <th>Cantidad</th>
-                                        <th>SubTotal(PEN)</th>
+                                        <th>SubTotal</th>
                                     </tr>
                                 </thead>
                                 <tfoot>
 
                                     <tr>
-                                        <th colspan="4">
-                                            <p align="right">SUBTOTAL:</p>
-                                        </th>
-                                        <th>
-                                            <p align="right">s/{{number_format($subtotal,2)}}</p>
-                                        </th>
-                                    </tr>
-
-                                    <tr>
-                                        <th colspan="4">
-                                            <p align="right">TOTAL IMPUESTO ({{$sale->tax}}%):</p>
-                                        </th>
-                                        <th>
-                                            <p align="right">s/{{number_format($subtotal*$sale->tax/100,2)}}</p>
-                                        </th>
-                                    </tr>
-                                    <tr>
-                                        <th colspan="4">
+                                        <th colspan="3">
                                             <p align="right">TOTAL:</p>
                                         </th>
                                         <th>
-                                            <p align="right">s/{{number_format($sale->total,2)}}</p>
+                                            <p >{{number_format($sale->total,2)}} Bs.-</p>
                                         </th>
                                     </tr>
 
@@ -90,12 +72,10 @@
                                 <tbody>
                                     @foreach($saleDetails as $saleDetail)
                                     <tr>
-                                        <td>{{$saleDetail->product->name}}</td>
-                                        <td>s/ {{$saleDetail->price}}</td>
-                                        <td>{{$saleDetail->discount}} %</td>
+                                        <td>{{$saleDetail->product->name}} - {{$saleDetail->product->caract}}</td>
+                                        <td>{{$saleDetail->price}} Bs.-</td>
                                         <td>{{$saleDetail->quantity}}</td>
-                                        <td>s/{{number_format($saleDetail->quantity*$saleDetail->price - $saleDetail->quantity*$saleDetail->price*$saleDetail->discount/100,2)}}
-                                        </td>
+                                        <td>{{number_format($saleDetail->quantity*$saleDetail->price - $saleDetail->quantity*$saleDetail->price*$saleDetail->discount/100,2)}} Bs.-</td>
                                     </tr>
                                     @endforeach
                                 </tbody>

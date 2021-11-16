@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 @section('title','Registro de proyecto')
 @section('styles')
-{!! Html::style('select/dist/css/bootstrap-select.min.css') !!}
+
 <style type="text/css">
     .unstyled-button {
         border: none;
@@ -119,14 +119,8 @@
 
 @endsection
 @section('scripts')
-{!! Html::script('melody/js/alerts.js') !!}
-{!! Html::script('melody/js/avgrund.js') !!}
-
-{!! Html::script('select/dist/js/bootstrap-select.min.js') !!}
-{!! Html::script('js/sweetalert2.all.min.js') !!}
-
 <script>
-    
+ let carrito=['Obreros']   
 $(document).ready(function () {
     $("#agregar").click(function () {
         agregar();
@@ -148,10 +142,14 @@ function agregar() {
     console.log(obrero_id);
     producto = $("#user_id option:selected").text();
     console.log(producto);
-    if (obrero_id != " " ){
+    console.log(carrito);
+    if (obrero_id != " " && obrero_id > 0){
+        
         console.log("Ingreso con exito");
         var fila = '<tr class="selected" id="fila' + cont + '"><td><button type="button" class="btn btn-danger btn-sm" onclick="eliminar(' + cont + ');"><i class="fa fa-times fa-2x"></i></button></td> <td><input type="hidden" name="obrero_id[]" value="' + obrero_id + '">' + producto + '</td></tr>';
+        
         $('#detalles').append(fila);
+        
     }else{
         console.log("Error");
     }
@@ -162,7 +160,16 @@ function agregar() {
 function eliminar(index) {
     $("#fila" + index).remove();
    }
+  
 
+function addCarrito(obrero_id){
+    for(let i=0;i<carrito.length; i++){
+            if(carrito[i]===obrero_id){
+                console.log("Y a se registro ese Obrero");
+                return null;
+            }
+        }
+}
 </script>
 
 @endsection

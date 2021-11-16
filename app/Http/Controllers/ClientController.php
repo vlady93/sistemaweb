@@ -9,6 +9,14 @@ use App\Http\Requests\Client\UpdateRequest;
 
 class ClientController extends Controller
 {
+    function __construct()
+    {
+         $this->middleware('permission:ver-cliente')->only('index');
+         $this->middleware('permission:crear-cliente', ['only' => ['create','store']]);
+         $this->middleware('permission:editar-cliente', ['only' => ['edit','update']]);
+         $this->middleware('permission:detalle-cliente', ['only' => ['show']]);
+         $this->middleware('permission:borrar-cliente', ['only' => ['destroy']]);
+    }
     public function index()
     {
         $clients = Client::get();

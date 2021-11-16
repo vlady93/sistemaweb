@@ -8,7 +8,17 @@ use App\Http\Requests\Provider\StoreRequest;
 use App\Http\Requests\Provider\UpdateRequest;
 
 class ProviderController extends Controller
+
 {
+
+    function __construct()
+    {
+         $this->middleware('permission:ver-proveedor')->only('index');
+         $this->middleware('permission:crear-proveedor', ['only' => ['create','store']]);
+         $this->middleware('permission:editar-proveedor', ['only' => ['edit','update']]);
+         $this->middleware('permission:detalle-proveedor', ['only' => ['show']]);
+         $this->middleware('permission:borrar-proveedor', ['only' => ['destroy']]);
+    }
     public function index()
     {
         $providers = Provider::get();

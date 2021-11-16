@@ -9,9 +9,19 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Purchase\StoreRequest;
 use App\Http\Requests\Purchase\UpdateRequest;
+use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Support\Carbon;
 class PurchaseController extends Controller
 {
+    function __construct() 
+    {
+    $this->middleware('permission:ver-salida-material')->only('index');
+    $this->middleware('permission:crear-salida-material', ['only' => ['create','store']]);
+    $this->middleware('permission:editar-salida-material', ['only' => ['edit','update']]);
+    $this->middleware('permission:detalle-salida-material', ['only' => ['show']]);
+    $this->middleware('permission:borrarsalida--material', ['only' => ['destroy']]);
+    $this->middleware('permission:pdf-salida-material', ['only' => ['pdf','pdf-material']]);
+    }
     public function index()
     {
         $purchases = Purchase::get();
@@ -65,5 +75,19 @@ class PurchaseController extends Controller
     {
         /* $purchase->delete();
         return redirect()->route('purchases.index'); */
+    }
+    public function pdf(Purchase $purchase)
+    {
+        $subtotal = 0 ;
+        $purchaseDetails = $purchase->purchaseDetails;
+        foreach ($purchaseDetails as $purchaseDetail) {
+            $subtotal += $purchaseDetail->quantity * $purchaseDetail->price;
+        }
+
+        $pdf = PDF::loadView('admin.purchase.pdf',compact('purchase','subtotal','purchaseDetails'));
+      
+        
+
+        return $pdf->stream('Reporte_de_compra.pdf');
     }
 }

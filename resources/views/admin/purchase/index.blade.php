@@ -11,11 +11,6 @@
 
 @endsection
 @section('create')
-<li class="nav-item d-none d-lg-flex">
-    <a class="nav-link" href="{{route('purchases.create')}}">
-      <span class="btn btn-primary">+ Registrar compra</span>
-    </a>
-  </li>
 @endsection
 @section('options')
 @endsection
@@ -25,7 +20,7 @@
 <div class="content-wrapper">
     <div class="page-header">
         <h3 class="page-title">
-            Compras
+            Ingreso de Material
         </h3>
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
@@ -39,19 +34,12 @@
             <div class="card">
                 <div class="card-body">
                     
-                    <div class="d-flex justify-content-between">
-                        <h4 class="card-title">Compras</h4>
-                        {{--  <i class="fas fa-ellipsis-v"></i>  --}}
-                        <div class="btn-group">
-                            <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-ellipsis-v"></i>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right">
-                              <a href="{{route('purchases.create')}}" class="dropdown-item">Registrar</a>
-                              {{--  <button class="dropdown-item" type="button">Another action</button>
-                              <button class="dropdown-item" type="button">Something else here</button>  --}}
-                            </div>
-                          </div>
+                    <div class="d-flex justify-content-between align-items-center mb-3 mr-2">
+                        <h5> Lista de Ingresos de Material</h5>
+                        <a class="nav-link" href="{{ route('purchases.create') }}">
+                            <span class="btn btn-success btn-sm "> Nuevo Ingreso de Material</span>
+                        </a>
+
                     </div>
 
                     <div class="table-responsive">
@@ -59,8 +47,8 @@
                             <thead>
                                 <tr>
                                     <th>Id</th>
-                                    <th>Fecha</th>
-                                    <th>Total</th>
+                                    <th>Usuario</th>
+                                    <th>Fecha/Hora</th>
                                     <th>Estado</th>
                                     <th style="width:50px;">Acciones</th>
                                 </tr>
@@ -71,10 +59,11 @@
                                     <th scope="row">
                                         <a href="{{route('purchases.show', $purchase)}}">{{$purchase->id}}</a>
                                     </th>
+                                    <td>{{$purchase->user->name}}</td>
                                     <td>
                                         {{\Carbon\Carbon::parse($purchase->purchase_date)->format('d M y h:i a')}}
                                     </td>
-                                    <td>{{$purchase->total}}</td>
+                                    
 
                                     @if ($purchase->status == 'VALID')
                                     <td>
@@ -89,13 +78,9 @@
                                         </a>
                                     </td>
                                     @endif
-                                    <td style="width: 50px;">
+                                    <td style="width: 50px;" class="text-center">
 
-                                        <a href="#" class="jsgrid-button jsgrid-edit-button"><i class="far fa-file-pdf"></i></a>
-                                        {{--  <a href="#" class="jsgrid-button jsgrid-edit-button"><i class="fas fa-print"></i></a>  --}}
-                                        <a href="#" class="jsgrid-button jsgrid-edit-button"><i class="far fa-eye"></i></a>
-                                   
-                                      
+                                        <a href="{{route('purchases.pdf',$purchase)}}" class="jsgrid-button jsgrid-edit-button"><i class="far fa-file-pdf"></i></a>
                                     </td>
                                 </tr>
                                 @endforeach

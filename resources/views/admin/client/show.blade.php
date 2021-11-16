@@ -16,7 +16,7 @@
 <div class="content-wrapper">
     <div class="page-header">
         <h3 class="page-title">
-            {{$client->name}}
+            Detalle de Cliente 
         </h3>
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
@@ -33,7 +33,7 @@
                     <div class="row">
                         <div class="col-lg-4">
                             <div class="border-bottom text-center pb-4">
-                                <h3>{{$client->name}}</h3>
+                                <h3>{{$client->name}} {{$client->ap_paterno}} {{$client->ap_materno}}</h3>
                                 <div class="d-flex justify-content-between">
                                 </div>
                             </div>
@@ -45,7 +45,7 @@
                                     </a>
                                     <a class="list-group-item list-group-item-action" id="list-profile-list"
                                         data-toggle="list" href="#list-profile" role="tab" aria-controls="profile">
-                                        Historial de compras
+                                        Historial de Proyectos
                                     </a>
                                     {{--  <button type="button" class="list-group-item list-group-item-action">Registrar
                                         producto</button>  --}}
@@ -70,9 +70,9 @@
                                         <div class="d-flex align-items-start profile-feed-item">
                                             
                                             <div class="form-group col-md-6">
-                                                <strong><i class="fab fa-product-hunt mr-1"></i> Nombre</strong>
+                                                <strong><i class="fas fa-venus-mars mr-1"></i> Genero</strong>
                                                 <p class="text-muted">
-                                                    {{$client->name}} {{$client->ap_paterno}} {{$client->ap_materno}}
+                                                    {{$client->genero}} 
                                                 </p>
                                                 <hr>
                                                 <strong><i class="fas fa-address-card mr-1"></i> CI</strong>
@@ -90,19 +90,19 @@
                                             <div class="form-group col-md-6">
                                                 <strong>
                                                     <i class="fas fa-mobile mr-1"></i>
-                                                    Dirección</strong>
-                                                <p class="text-muted">
-                                                    {{$client->address}}
-                                                </p>
-                                                <hr>
-                                                <strong><i class="fas fa-envelope mr-1"></i> Teléfono / Celular</strong>
+                                                    Teléfono / Celular</strong>
                                                 <p class="text-muted">
                                                     {{$client->phone}}
                                                 </p>
                                                 <hr>
-                                                <strong><i class="fas fa-map-marked-alt mr-1"></i> Correo electrónico</strong>
+                                                <strong><i class="fas fa-envelope mr-1"></i> Correo Electrónico</strong>
                                                 <p class="text-muted">
                                                     {{$client->email}}
+                                                </p>
+                                                <hr>
+                                                <strong><i class="fas fa-map-marked-alt mr-1"></i> Dirección</strong>
+                                                <p class="text-muted">
+                                                    {{$client->address}}
                                                 </p>
                                                 <hr>
                                             </div>

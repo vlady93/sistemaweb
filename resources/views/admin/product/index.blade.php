@@ -17,9 +17,13 @@
 @section('content')
 <div class="content-wrapper">
     <div class="page-header">
-        <h3 class="page-title">
-            Materiales
-        </h3>
+        
+        <div class="row">
+            <h3 class="page-title ml-3">
+                Materiales
+            </h3>
+            <a  href="{{route('products.pdf_material','Lista de Materiales')}}" class="jsgrid-button jsgrid-edit-button ml-3"><i class="far fa-file-pdf fa-2x"></i></a>
+        </div>
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="#">Panel administrador</a></li>
@@ -56,7 +60,7 @@
                                 <tr>
                                     
                                     <td>
-                                        <a href="{{route('products.show',$product)}}">{{$product->name}}</a>
+                                        <a href="{{route('products.show',$product)}}">{{$product->name}} {{$product->caract}}</a>
                                     </td>
                                     <td>{{$product->stock}}</td>
                                     <td>{{$product->status}}</td>
@@ -67,6 +71,7 @@
                                         <a class="jsgrid-button jsgrid-edit-button" href="{{route('products.edit', $product)}}" title="Editar">
                                             <i class="far fa-edit"></i>
                                         </a>
+                                        <a href="{{route('products.pdf',$product)}}" class="jsgrid-button jsgrid-edit-button"><i class="far fa-file-pdf"></i></a>
                                         
                                         <button class="jsgrid-button jsgrid-delete-button unstyled-button" type="submit" title="Eliminar">
                                             <i class="far fa-trash-alt"></i>

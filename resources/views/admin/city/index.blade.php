@@ -53,9 +53,7 @@
                                 @foreach ($cities as $city)
                                 <tr>
                                     
-                                    <td>
-                                        <a href="{{route('categories.show',$city)}}">{{$city->name}}</a>
-                                    </td>
+                                    <td>{{$city->name}}</td>
                                     <td>{{$city->description}}</td>
                                     <td style="width: 50px;">
                                         {!! Form::open(['route'=>['cities.destroy',$city], 'method'=>'DELETE']) !!}

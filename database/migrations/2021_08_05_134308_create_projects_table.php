@@ -27,7 +27,7 @@ class CreateProjectsTable extends Migration
             $table->string('description')->nullable();
 
             $table->dateTime('project_date');
-            $table->enum('status',['VALID','CANCELED'])->default('VALID');
+            $table->enum('status',['VALID','CANCELED'])->default('CANCELED');
 
             $table->timestamps();
         });

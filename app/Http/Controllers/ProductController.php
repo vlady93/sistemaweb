@@ -11,9 +11,20 @@ use App\Http\Requests\Product\StoreRequest;
 use App\Http\Requests\Product\UpdateRequest;
 use App\Models\Sale;
 use App\Models\SaleDetails;
+use Barryvdh\DomPDF\Facade as PDF;
 
 class ProductController extends Controller
 {
+    function __construct()
+    {
+         $this->middleware('permission:ver-material')->only('index');
+         $this->middleware('permission:crear-material', ['only' => ['create','store']]);
+         $this->middleware('permission:editar-material', ['only' => ['edit','update']]);
+         $this->middleware('permission:detalle-material', ['only' => ['show']]);
+         $this->middleware('permission:borrar-material', ['only' => ['destroy']]);
+         $this->middleware('permission:pdf-material', ['only' => ['pdf','pdf-material']]);
+    }
+
     public function index()
     {
         $products = Product::get();
@@ -30,7 +41,7 @@ class ProductController extends Controller
 
     
     public function store(StoreRequest $request)
-    {
+    {   
         if($request->hasFile('picture')){
             $file = $request->file('picture');
             $image_name = time().'_'.$file->getClientOriginalName();
@@ -90,4 +101,31 @@ class ProductController extends Controller
         $product->delete();
         return redirect()->route('products.index');
     }
+    public function pdf(Product $product)
+    {
+        $kardex = Product::join("movimientos","movimientos.product_id","=","products.id")
+                            ->where("movimientos.product_id","=",$product->id)                    
+                            ->get();  
+
+        $pdf = PDF::loadView('admin.product.pdf',compact('kardex','product'));
+
+        return $pdf->stream('Reporte_de_producto.pdf');
+    }
+    public function pdfmaterial()
+    {
+        
+        $kardex = Product::get();  
+
+        $pdf = PDF::loadView('admin.product.pdf_materiales',compact('kardex'));
+
+        return $pdf->stream('Reporte_de_producto.pdf');
+
+    }
+    public function lowmaterial()
+    {
+        $products = Product::where('stock','<=','15')->get();
+    
+        return view('admin.product.low_stock', compact('products'));
+    }
 }
+

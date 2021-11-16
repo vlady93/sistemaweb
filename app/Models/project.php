@@ -28,4 +28,5 @@ class project extends Model
     public function projectDetails(){
         return $this->hasMany(ProjectDetails::class);
     }
+    
 }

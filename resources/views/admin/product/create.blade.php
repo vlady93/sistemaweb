@@ -10,13 +10,13 @@
 <div class="content-wrapper">
     <div class="page-header">
         <h3 class="page-title">
-            Registro de productos
+            Registro de Materiales
         </h3>
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="#">Panel administrador</a></li>
-                <li class="breadcrumb-item"><a href="{{route('products.index')}}">Productos</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Registro de productos</li>
+                <li class="breadcrumb-item"><a href="{{route('products.index')}}">Materiales</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Registro de Material</li>
             </ol>
         </nav>
     </div>
@@ -32,7 +32,7 @@
                       <label for="name" class="font-weight-bold">Nombre</label>
                       <input type="text" name="name" id="name" class="form-control" aria-describedby="helpId" required>
                       @error('name')
-                        <small>*{{$message}}</small>
+                        <small class="text-danger">*{{$message}}</small>
                       @enderror
                     </div>
 
@@ -40,13 +40,16 @@
                         <label for="caract" class="font-weight-bold">Caracteristica</label>
                         <input type="text" name="caract" id="caract" class="form-control" aria-describedby="helpId" required>
                         @error('caract')
-                          <small>*{{$message}}</small>
+                          <small class="text-danger">*{{$message}}</small>
                         @enderror
                     </div>
     
                     <div class="form-group">
                         <label for="sell_price" class="font-weight-bold">Precio de venta</label>
                         <input type="number" name="sell_price" id="sell_price" class="form-control" aria-describedby="helpId" required>
+                        @error('sell_price')
+                          <small class="text-danger">*{{$message}}</small>
+                        @enderror
                     </div>
                     <div class="form-group">
                       <label for="category_id" class="font-weight-bold">Categoría</label>
@@ -56,7 +59,7 @@
                         @endforeach
                       </select>
                       @error('category_id')
-                        <small>*{{$message}}</small>
+                        <small class="text-danger">*{{$message}}</small>
                       @enderror
                     </div>
 
@@ -68,7 +71,7 @@
                           @endforeach
                         </select>
                         @error('provider_id')
-                            <small>*{{$message}}</small>
+                            <small class="text-danger">*{{$message}}</small>
                         @enderror
                     </div>
 
@@ -76,15 +79,15 @@
                         <label for="rfid"class="font-weight-bold">RFID</label>
                         <input type="text" name="rfid" id="rfid" class="form-control" aria-describedby="helpId" required>
                         @error('rfid')
-                          <small>*{{$message}}</small>
+                          <small class="text-danger">*{{$message}}</small>
                         @enderror
                     </div>
 
                     <div class="card-body">
-                        <h5 class="card-title d-flex font-weight-bold">Imagen de producto</h5>
+                        <h5 class="card-title d-flex font-weight-bold">Imagen de material</h5>
                         <input type="file"  name="picture" id="picture" class="dropify" />
                         @error('picture')
-                            <small>*{{$message}}</small>
+                            <smal class="text-danger">*{{$message}}</small>
                         @enderror
                     </div>
 

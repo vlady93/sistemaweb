@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-@section('title','Registrar categoría')
+@section('title','Registrar ciudad')
 @section('styles')
 <style type="text/css">
     .unstyled-button {
@@ -40,7 +40,7 @@
                     @include('admin.city._form')
                     
                     <button type="submit" class="btn btn-primary mr-2">Registrar</button>
-                    <a href="{{route('categories.index')}}"class="btn btn-light mr-2">Cancelar</a>
+                    <a href="{{route('cities.index')}}"class="btn btn-light mr-2">Cancelar</a>
                     {!! Form::close() !!}
                 </div>
             </div>
